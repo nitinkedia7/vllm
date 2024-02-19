@@ -175,7 +175,7 @@ def request_output_to_completion_response(
             elif request.echo and request.max_tokens > 0:
                 token_ids = prompt_token_ids + output.token_ids
                 top_logprobs = prompt_logprobs + output.logprobs
-                output_text = prompt_text + output.text
+                output_text = str(prompt_text) + output.text
             else:
                 token_ids = output.token_ids
                 top_logprobs = output.logprobs
@@ -301,7 +301,7 @@ class OpenAIServingCompletion(OpenAIServing):
                         request, prompt=prompt)
 
                 generators.append(
-                    self.engine.generate(None,
+                    self.engine.generate(None if prompt_is_tokens else prompt,
                                          sampling_params,
                                          f"{request_id}-{i}",
                                          prompt_token_ids=input_ids,
