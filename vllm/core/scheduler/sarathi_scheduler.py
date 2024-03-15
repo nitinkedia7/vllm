@@ -25,7 +25,8 @@ class SarathiScheduler(BaseScheduler):
         self.prompt_limit = self.scheduler_config.max_model_len
         self.chunk_size = self.scheduler_config.chunk_size
         self.enable_rolling_prefills = self.scheduler_config.enable_rolling_prefills
-
+        self.prefill_fitting_tolerance = self.scheduler_config.prefill_fitting_tolerance
+        
     def _get_block_space_manager_class(self) -> Type[BaseBlockSpaceManager]:
         return SarathiBlockSpaceManager
 
